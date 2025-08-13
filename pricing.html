@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pricing · StreamLiner</title>
+  <meta name="description" content="StreamLiner pricing plans: Community, Enthusiast, Standard, Premium." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root{ --bg:#0a0b10; --fg:#e7e9ee; --muted:#9aa0aa; --accent:#7c4dff; --accent2:#00e5ff; --glass:rgba(255,255,255,.06) }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial;color:var(--fg);background:radial-gradient(1200px 800px at 80% -10%, rgba(124,77,255,.08), transparent 60%), radial-gradient(900px 600px at -10% 110%, rgba(0,229,255,.08), transparent 60%), var(--bg)}
+    a{color:var(--fg);text-decoration:none}
+    .container{max-width:1120px;margin:0 auto;padding:0 20px}
+    nav{position:sticky;top:0;backdrop-filter:saturate(160%) blur(8px);background:linear-gradient(180deg, rgba(10,11,16,.8), rgba(10,11,16,.4));border-bottom:1px solid rgba(255,255,255,.06);z-index:50}
+    .nav-wrap{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+    .brand{display:flex;gap:10px;align-items:center;font-weight:800;letter-spacing:.3px}
+    .logo{width:28px;height:28px;border-radius:8px;background:conic-gradient(from 210deg, var(--accent), var(--accent2)); box-shadow:0 6px 22px rgba(124,77,255,.45)}
+    .nav-links{display:flex;gap:18px}
+    .btn{padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));transition:.25s}
+    .btn:hover{transform:translateY(-2px); box-shadow:0 6px 24px rgba(0,0,0,.35)}
+    .btn-primary{border-color:transparent;background:linear-gradient(135deg, var(--accent), var(--accent2));color:#0b0e14;font-weight:700}
+    header{padding:70px 0 24px;position:relative}
+    .title{font-size:clamp(32px,4.4vw,52px);line-height:1.05;letter-spacing:-.02em;font-weight:800;margin:0}
+    .subtitle{color:var(--muted)}
+    .reveal{opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease}
+    .reveal.on{opacity:1; transform:none}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin-top:20px}
+    .card{border:1px solid rgba(255,255,255,.08);background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:10px;transition:.3s}
+    .card:hover{transform:translateY(-6px); box-shadow:0 12px 40px rgba(0,0,0,.35)}
+    .badge{display:inline-block;font-size:12px;padding:.22rem .6rem;border-radius:999px;border:1px solid rgba(255,255,255,.14);background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02))}
+    .price{font-size:28px;font-weight:800}
+    .muted{color:var(--muted)}
+    ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:6px}
+    li::before{content:"•"; margin-right:8px; color:var(--accent2)}
+    .cta{margin-top:auto;display:flex;gap:10px;flex-wrap:wrap}
+    footer{border-top:1px solid rgba(255,255,255,.08); background:rgba(255,255,255,.02); padding:20px 0; color:var(--muted); margin-top:30px}
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="container nav-wrap">
+      <a class="brand" href="index.html">
+        <span class="logo" aria-hidden="true"></span>
+        <span>StreamLiner</span>
+      </a>
+      <div class="nav-links">
+        <a class="btn" href="features.html">Features</a>
+        <a class="btn" href="docs.html">Docs</a>
+        <a class="btn" href="pricing.html">Pricing</a>
+        <a class="btn btn-primary" href="https://github.com/allamiro/StreamLiner">GitHub</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="container">
+    <h1 class="title reveal">Pricing</h1>
+    <p class="subtitle reveal" style="max-width:760px">Choose a plan that fits. Licenses are per <strong>instance</strong> with limits on <strong>active pipelines</strong> (concurrent <code>flow</code> configs). Upgrade anytime.</p>
+  </header>
+
+  <section class="container">
+    <div class="grid">
+      <div class="card reveal" style="background:linear-gradient(180deg, rgba(124,77,255,.10), rgba(255,255,255,.03))">
+        <span class="badge">All you’ll ever need</span>
+        <h3 style="margin:0">Premium</h3>
+        <div class="price">€1,200<span class="muted" style="font-size:14px"> / year / instance</span></div>
+        <div class="muted">Unlimited pipelines • Unlimited instances</div>
+        <ul>
+          <li>Full GUI + API, multi-tenant, RBAC & audit logs</li>
+          <li>Connectors: Elastic, OpenSearch, Splunk, ArcSight, QRadar, Sentinel; S3, Kafka, Kinesis/Event Hubs, Pub/Sub</li>
+          <li>Enrichment: GeoIP/ASN, threat intel, custom scripts</li>
+          <li>Support: unlimited tickets, 2h SLA, remote assist</li>
+        </ul>
+        <div class="cta"><a class="btn btn-primary" href="#">Buy now</a><a class="btn" href="docs.html">Docs</a></div>
+      </div>
+      <div class="card reveal" style="background:linear-gradient(180deg, rgba(0,229,255,.10), rgba(255,255,255,.03))">
+        <span class="badge">Most popular</span>
+        <h3 style="margin:0">Standard</h3>
+        <div class="price">€800<span class="muted" style="font-size:14px"> / year / instance</span></div>
+        <div class="muted">50 pipelines • 10 instances</div>
+        <ul>
+          <li>Full GUI + API, RBAC</li>
+          <li>All Premium connectors</li>
+          <li>Support: 10 tickets/year, 4h SLA</li>
+        </ul>
+        <div class="cta"><a class="btn btn-primary" href="#">Buy now</a><a class="btn" href="docs.html">Docs</a></div>
+      </div>
+      <div class="card reveal" style="background:linear-gradient(180deg, rgba(0,255,128,.10), rgba(255,255,255,.03))">
+        <span class="badge">Home lab</span>
+        <h3 style="margin:0">Enthusiast (Non‑commercial)</h3>
+        <div class="price">€120<span class="muted" style="font-size:14px"> / year / instance</span></div>
+        <div class="muted">10 pipelines • 2 instances</div>
+        <ul>
+          <li>GUI</li>
+          <li>Connectors: Elastic, OpenSearch, <strong>ArcSight</strong>, <strong>S3 (writer)</strong></li>
+          <li>Support: community forum</li>
+        </ul>
+        <div class="cta"><a class="btn btn-primary" href="#">Buy now</a><a class="btn" href="docs.html">Docs</a></div>
+      </div>
+      <div class="card reveal">
+        <span class="badge">Open Source</span>
+        <h3 style="margin:0">Community</h3>
+        <div class="price">Free</div>
+        <div class="muted">3 pipelines • 1 instance</div>
+        <ul>
+          <li>CLI only</li>
+          <li>Connectors: Elastic, OpenSearch</li>
+          <li>Support: community/forum</li>
+        </ul>
+        <div class="cta"><a class="btn" href="https://github.com/allamiro/StreamLiner">GitHub</a></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container" style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap">
+      <div>© <span id="year"></span> StreamLiner · MIT</div>
+      <div><a href="index.html">Home</a> · <a href="features.html">Features</a> · <a href="docs.html">Docs</a> · <a href="pricing.html">Pricing</a></div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const io = new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on'); io.unobserve(e.target)}})},{threshold:.14});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  </script>
+</body>
+</html>
