@@ -17,7 +17,7 @@
     nav{position:sticky;top:0;backdrop-filter:saturate(160%) blur(8px);background:linear-gradient(180deg, rgba(10,11,16,.8), rgba(10,11,16,.4));border-bottom:1px solid rgba(255,255,255,.06);z-index:50}
     .nav-wrap{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
     .brand{display:flex;gap:10px;align-items:center;font-weight:800;letter-spacing:.3px}
-    .logo{width:28px;height:28px;border-radius:8px;background:conic-gradient(from 210deg, var(--accent), var(--accent2));box-shadow:0 6px 22px rgba(124,77,255,.45)}
+    .logo-img{height:28px;width:auto;display:block;border-radius:6px}
     .nav-links{display:flex;gap:18px}
     .btn{padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));transition:.25s}
     .btn:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(0,0,0,.35)}
@@ -44,7 +44,7 @@
   <nav>
     <div class="container nav-wrap">
       <a class="brand" href="index.html">
-        <span class="logo"></span>
+        <img src="images/streamliner-logo.png" alt="StreamLiner Logo" class="logo-img" />
         <span>StreamLiner</span>
       </a>
       <div class="nav-links">
@@ -68,7 +68,7 @@
     </div>
   </header>
 
-  <!-- Story Animation Section (restored) -->
+  <!-- Story Animation Section -->
   <section id="streamliner-animation">
     <div class="container" style="text-align:center">
       <svg id="streamlinerSVG" viewBox="0 0 1040 460">
@@ -181,93 +181,4 @@
       </div>
       <div class="feature">
         <h3>Enrich on the edge</h3>
-        <p>GeoIP, ASN, Threat-intel tagging, and dedup built-in.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="container" id="get-started">
-    <h2>Get started in 60 seconds</h2>
-    <div class="features-grid">
-      <div class="feature">
-        <h3>1. Run</h3>
-        <p>Docker: <code>docker run -p 514:514/udp ghcr.io/allamiro/streamliner:latest -v /path/to/config:/etc/streamliner</code></p>
-      </div>
-      <div class="feature">
-        <h3>2. Configure</h3>
-        <p>Create <code>streamliner.ini</code> with your input, parser, and output blocks.</p>
-      </div>
-      <div class="feature">
-        <h3>3. Ship</h3>
-        <p>Point your agents to StreamLiner; verify events in your SIEM index.</p>
-      </div>
-    </div>
-    <div style="text-align:center;margin-top:20px">
-      <a class="btn btn-primary" href="docs.html">Read the Docs</a>
-    </div>
-  </section>
-
-  <footer>
-    <div class="container">
-      © <span id="year"></span> StreamLiner · MIT License
-    </div>
-  </footer>
-
-  <!-- GSAP (for animation) -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/MotionPathPlugin.min.js"></script>
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-    gsap.registerPlugin(MotionPathPlugin);
-    const tl = gsap.timeline({repeat:-1, defaults:{ease:'power1.inOut'}});
-
-    function playStory(){
-      tl.clear();
-      gsap.set('#scene1, #scene2, #scene3, #scene4, #scene5', {opacity:0});
-
-      // Stage 1: Typing (~3s)
-      tl.to('#scene1', {opacity:1, duration:0.6})
-        .fromTo('#scene1 .key', {y:0},{y:-2, stagger:0.08, yoyo:true, repeat:10, duration:0.12})
-        .to('#typedLines .typeLine', {opacity:1, stagger:0.25, duration:0.25}, '<')
-        .to('#scene1', {opacity:0, duration:0.6}, '+=1.6');
-
-      // Stage 2: Inside pulses (~4s)
-      tl.to('#scene2', {opacity:1, duration:0.6})
-        .add(()=>{
-          const dots = document.querySelectorAll('#scene2 .pulseDot');
-          dots.forEach((el,i)=>{
-            gsap.set(el, {x:140, y:300, opacity:1});
-            gsap.to(el, {
-              duration: 3.0 + i*0.35,
-              ease: 'power1.inOut',
-              motionPath: {path:'#netPath', align:'#netPath', autoRotate:true},
-              onUpdate: ()=> el.setAttribute('r', 4 + 2*Math.random()),
-              onComplete: ()=> gsap.to(el,{opacity:0,duration:0.3})
-            });
-          });
-        })
-        .to('#scene2', {opacity:0, duration:0.6}, '+=2.0');
-
-      // Stage 3: Log file (~3s)
-      tl.to('#scene3', {opacity:1, duration:0.6})
-        .from('#scene3 line', {scaleX:0, transformOrigin:'0 0', stagger:0.15, duration:0.55})
-        .to('#scene3', {opacity:0, duration:0.6}, '+=1.2');
-
-      // Stage 4: Processing (~3.5s)
-      tl.to('#scene4', {opacity:1, duration:0.6})
-        .to('#scene4 .gear', {rotation:360, transformOrigin:'50% 50%', duration:1.2, repeat:2})
-        .fromTo('#wave', {attr:{d:'M420 230 Q 470 230 520 230 T 620 230'}}, {attr:{d:'M420 230 Q 470 210 520 230 T 620 230'}, yoyo:true, repeat:3, duration:0.5})
-        .to('#scene4', {opacity:0, duration:0.6});
-
-      // Stage 5: Inputs -> Outputs (~4s)
-      tl.to('#scene5', {opacity:1, duration:0.6})
-        .from('#scene5 .inArrow', {scaleX:0, transformOrigin:'0 0', stagger:0.2, duration:0.6})
-        .from('#scene5 .outArrow', {scaleX:0, transformOrigin:'0 0', stagger:0.25, duration:0.6}, '>-0.2')
-        .to('#scene5', {opacity:0, duration:0.6}, '+=2.2');
-    }
-
-    playStory();
-    document.getElementById('replayBtn').addEventListener('click', ()=>{ tl.pause(0); playStory(); });
-  </script>
-</body>
-</html>
+        <p
