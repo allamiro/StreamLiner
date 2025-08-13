@@ -1,52 +1,269 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StreamLiner Documentation</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <style>
-        .footer { padding: 20px 0; background-color: #343a40; color: #ccc; text-align: center; }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Docs · StreamLiner</title>
+  <meta name="description" content="StreamLiner documentation: quickstart, configuration, examples for Elastic/OpenSearch/Splunk, and reference." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root{ --bg:#0a0b10; --fg:#e7e9ee; --muted:#9aa0aa; --accent:#7c4dff; --accent2:#00e5ff; --glass:rgba(255,255,255,.06) }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial;color:var(--fg);background:radial-gradient(1200px 800px at 80% -10%, rgba(124,77,255,.08), transparent 60%), radial-gradient(900px 600px at -10% 110%, rgba(0,229,255,.08), transparent 60%), var(--bg)}
+    a{color:var(--fg);text-decoration:none}
+    .container{max-width:1120px;margin:0 auto;padding:0 20px}
+    nav{position:sticky;top:0;backdrop-filter:saturate(160%) blur(8px);background:linear-gradient(180deg, rgba(10,11,16,.8), rgba(10,11,16,.4));border-bottom:1px solid rgba(255,255,255,.06);z-index:50}
+    .nav-wrap{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+    .brand{display:flex;gap:10px;align-items:center;font-weight:800;letter-spacing:.3px}
+    .logo{width:28px;height:28px;border-radius:8px;background:conic-gradient(from 210deg, var(--accent), var(--accent2)); box-shadow:0 6px 22px rgba(124,77,255,.45)}
+    .nav-links{display:flex;gap:18px}
+    .btn{padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));transition:.25s}
+    .btn:hover{transform:translateY(-2px); box-shadow:0 6px 24px rgba(0,0,0,.35)}
+    .btn-primary{border-color:transparent;background:linear-gradient(135deg, var(--accent), var(--accent2));color:#0b0e14;font-weight:700}
+    header{padding:70px 0 0;position:relative}
+    .title{font-size:clamp(32px,4.4vw,52px);line-height:1.05;letter-spacing:-.02em;font-weight:800;margin:0}
+    .subtitle{color:var(--muted)}
+    .layout{display:grid; grid-template-columns:280px 1fr; gap:22px; margin-top:18px}
+    .toc{position:sticky; top:76px; height:calc(100vh - 90px); overflow:auto; padding-right:8px}
+    .toc a{display:block; padding:8px 10px; border-radius:10px; color:var(--muted)}
+    .toc a.active, .toc a:hover{background:rgba(255,255,255,.06); color:var(--fg)}
+    section{padding:16px 0}
+    h2{margin:16px 0 6px}
+    .card{border:1px solid rgba(255,255,255,.08);background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));border-radius:16px;padding:16px}
+    .code{font-family:"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; font-size:13.5px; color:#dfe2f1}
+    .kbd{display:inline-block;padding:.12rem .38rem;border:1px solid rgba(255,255,255,.22);border-bottom-width:2px;border-radius:6px;font-family:"JetBrains Mono",monospace;font-size:12px}
+    .reveal{opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease}
+    .reveal.on{opacity:1; transform:none}
+    footer{border-top:1px solid rgba(255,255,255,.08); background:rgba(255,255,255,.02); padding:20px 0; color:var(--muted); margin-top:30px}
+    @media (max-width: 980px){ .layout{grid-template-columns:1fr} .toc{position:relative; top:auto; height:auto} }
+  </style>
 </head>
 <body>
+  <nav>
+    <div class="container nav-wrap">
+      <a class="brand" href="index.html">
+        <span class="logo" aria-hidden="true"></span>
+        <span>StreamLiner</span>
+      </a>
+      <div class="nav-links">
+        <a class="btn" href="features.html">Features</a>
+        <a class="btn" href="docs.html">Docs</a>
+        <a class="btn btn-primary" href="https://github.com/allamiro/StreamLiner">GitHub</a>
+      </div>
+    </div>
+  </nav>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand" href="index.html">StreamLiner</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="features.html">Features</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="docs.html">Docs</a></li>
-                    <li class="nav-item"><a class="nav-link" href="https://github.com/allamiro/StreamLiner" target="_blank">GitHub</a></li>
-                </ul>
-            </div>
+  <header class="container">
+    <h1 class="title reveal">Documentation</h1>
+    <p class="subtitle reveal" style="max-width:760px">Start fast, then tailor pipelines. If you've used Vector, Fluent Bit, or Logstash, the concepts will feel familiar: <code>input → parser → output</code>.</p>
+  </header>
+
+  <main class="container layout">
+    <aside class="toc card reveal">
+      <strong>On this page</strong>
+      <a href="#quickstart">Quickstart</a>
+      <a href="#config">Configuration</a>
+      <a href="#examples">Examples</a>
+      <a href="#reference">Reference</a>
+      <a href="#operations">Operations</a>
+      <a href="#faq">FAQ</a>
+    </aside>
+
+    <div>
+      <section id="quickstart" class="reveal">
+        <h2>Quickstart</h2>
+        <div class="card">
+          <p>Docker run:</p>
+          <pre class="code"><code>docker run --name streamliner \
+  -p 514:514/udp \
+  -p 8080:8080 \  # http input or metrics
+  -v $(pwd)/streamliner.ini:/etc/streamliner.ini \
+  ghcr.io/allamiro/streamliner:latest</code></pre>
+          <p>Create <code>streamliner.ini</code>:</p>
+          <pre class="code"><code>[flow.syslog_to_os]
+input.type = syslog_udp
+input.port = 514
+parser.type = ecs_map
+parser.preset = nginx
+output.type = opensearch
+output.url = https://os:9200
+output.index = streamliner-logs-%Y.%m.%d
+output.auth = basic:admin:admin</code></pre>
+          <p>Verify metrics at <code>http://localhost:8080/metrics</code>.</p>
         </div>
-    </nav>
+      </section>
 
-    <section class="py-5">
-        <div class="container">
-            <h1 class="display-4 mb-4">Documentation</h1>
-            <p class="lead">This page is for your project's detailed documentation, user guides, and installation instructions.</p>
-            <hr>
-            <h3>Getting Started</h3>
-            <p>Instructions on how to install and run StreamLiner.</p>
-            <pre><code class="language-bash"># Example command
-npm install streamliner
+      <section id="config" class="reveal">
+        <h2>Configuration</h2>
+        <div class="card">
+          <p>Configurations are INI-style with named flows. Each flow has <code>input</code>, <code>parser</code>, and <code>output</code> blocks. Flows can chain using <code>input.type = flow</code>.</p>
+          <pre class="code"><code>[settings]
+log.level = info
+buffer.path = /var/lib/streamliner
+
+[use]
+modules = geoip, asn, threatintel, opensearch, s3, kafka
+
+[flow.web]
+input.type = file
+input.path = /var/log/nginx/access.log
+parser.type = ecs_map
+parser.preset = nginx
+output.type = opensearch
+output.url = https://os:9200
+output.index = web-%Y.%m.%d
+
+[flow.to_s3]
+input.type = flow
+input.name = web
+output.type = s3
+output.bucket = logs-archive
+output.format = parquet</code></pre>
+        </div>
+      </section>
+
+      <section id="examples" class="reveal">
+        <h2>Examples</h2>
+        <div class="card" style="margin-bottom:12px">
+          <h3>OpenSearch / Elasticsearch</h3>
+          <pre class="code"><code>[flow.syslog]
+input.type = syslog_tcp
+input.port = 5140
+parser.type = ecs_map
+parser.preset = linux
+output.type = opensearch
+output.url = https://os.internal:9200
+output.index = syslog-%Y.%m.%d
+output.auth = basic:admin:admin
+output.tls.verify = true</code></pre>
+        </div>
+        <div class="card" style="margin-bottom:12px">
+          <h3>Splunk (HEC)</h3>
+          <pre class="code"><code>[flow.to_splunk]
+input.type = http
+input.bind = 0.0.0.0
+input.port = 8080
+parser.type = json
+output.type = http
+output.url = https://splunk:8088/services/collector
+output.headers = Authorization: Splunk &lt;token&gt;</code></pre>
+        </div>
+        <div class="card" style="margin-bottom:12px">
+          <h3>Kafka → S3 Parquet</h3>
+          <pre class="code"><code>[flow.kafka_to_s3]
+input.type = kafka
+input.brokers = kafka:9092
+input.topic = raw.logs
+parser.type = ecs_map
+parser.preset = nginx
+output.type = s3
+output.bucket = lake/logs
+output.format = parquet
+output.partition = dt=%Y-%m-%d/source=%{source}</code></pre>
+        </div>
+        <div class="card">
+          <h3>Multiline (Java stacktraces)</h3>
+          <pre class="code"><code>[flow.app]
+input.type = file
+input.path = /var/log/app/app.log
+parser.type = regex
+parser.pattern = ^(?&lt;ts&gt;\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z) (?&lt;level&gt;\w+) (?&lt;msg&gt;.*)$
+parser.multiline.start = ^\d{4}-\d{2}-\d{2}
+parser.multiline.merge = true
+output.type = opensearch
+output.index = app-%Y.%m.%d</code></pre>
+        </div>
+      </section>
+
+      <section id="reference" class="reveal">
+        <h2>Reference</h2>
+        <div class="card">
+          <h3>Input types</h3>
+          <pre class="code"><code>syslog_udp: port, bind
+syslog_tcp: port, bind, framing
+file: path, multiline.start, multiline.merge
+http: bind, port, auth
+kafka: brokers, topic, group, tls, sasl</code></pre>
+          <h3>Parser types</h3>
+          <pre class="code"><code>json: drop_invalid
+regex: pattern, types.ts="@timestamp:date, bytes:int"
+cef: vendor, product, version
+leef: vendor, product, version
+ecs_map: preset, map_file
 </code></pre>
-            <h3>Usage Examples</h3>
-            <p>Code snippets demonstrating how to use StreamLiner's core functions.</p>
+          <h3>Output types</h3>
+          <pre class="code"><code>opensearch: url, index, auth, tls.verify, pipeline
+s3: bucket, prefix, format(parquet|ndjson), partition
+kafka: brokers, topic, acks
+file: path, rotation.max_size</code></pre>
         </div>
-    </section>
+      </section>
 
-    <footer class="bg-dark text-white text-center py-3 mt-5">
-        <div class="container"><p class="mb-0">&copy; 2025 allamiro/StreamLiner. All Rights Reserved.</p></div>
-    </footer>
+      <section id="operations" class="reveal">
+        <h2>Operations</h2>
+        <div class="card">
+          <h3>Metrics</h3>
+          <pre class="code"><code># Prometheus
+flow_processed_total{flow="web"}
+flow_dropped_total{flow="web"}
+output_retries_total{output="opensearch"}</code></pre>
+          <h3>Buffers</h3>
+          <p class="muted">Enable disk buffers to absorb spikes and protect downstreams.</p>
+          <pre class="code"><code>[settings]
+buffer.enable = true
+buffer.path = /var/lib/streamliner
+buffer.max_bytes = 2GB</code></pre>
+          <h3>Security</h3>
+          <pre class="code"><code>[settings]
+api.token = changeme
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+[flow.secure_out]
+output.type = opensearch
+output.url = https://os:9200
+output.tls.ca = /etc/ssl/os-ca.pem
+output.tls.client_cert = /etc/ssl/app.crt
+output.tls.client_key = /etc/ssl/app.key</code></pre>
+        </div>
+      </section>
+
+      <section id="faq" class="reveal">
+        <h2>FAQ</h2>
+        <div class="card">
+          <p><strong>How is this different from Vector/Fluent Bit/Logstash?</strong><br/>StreamLiner trims the surface area to SIEM-focused normalization, with small readable configs and deterministic schema maps.</p>
+          <p><strong>Does it run on edge?</strong><br/>Yes—low memory footprint and single binary deployment.</p>
+          <p><strong>Is configuration hot-reloaded?</strong><br/>Roadmap: atomic reloads; for now, restart to pick up changes.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container" style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap">
+      <div>© <span id="year"></span> StreamLiner · MIT</div>
+      <div><a href="index.html">Home</a> · <a href="features.html">Features</a> · <a href="docs.html">Docs</a></div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const io = new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on'); io.unobserve(e.target)}})},{threshold:.14});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+    // TOC highlight
+    const links = Array.from(document.querySelectorAll('.toc a'));
+    const sections = links.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
+    const obs = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          links.forEach(l=>l.classList.remove('active'));
+          const id = '#' + e.target.id;
+          const active = links.find(l=>l.getAttribute('href')===id);
+          if(active) active.classList.add('active');
+        }
+      });
+    },{threshold:.4});
+    sections.forEach(s=>obs.observe(s));
+  </script>
 </body>
 </html>
