@@ -10,68 +10,68 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg: #0a0b10; --fg: #e7e9ee; --muted:#9aa0aa; --accent:#7c4dff; --accent2:#00e5ff; --card:#11131a; --glass:rgba(255,255,255,.06);
+      --bg:#0a0b10; --fg:#e7e9ee; --muted:#9aa0aa; --accent:#7c4dff; --accent2:#00e5ff; --glass:rgba(255,255,255,.06);
     }
     *{box-sizing:border-box}
     html,body{height:100%}
-    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial; color:var(--fg); background:radial-gradient(1200px 800px at 80% -10%, rgba(124,77,255,.08), transparent 60%),
-      radial-gradient(900px 600px at -10% 110%, rgba(0,229,255,.08), transparent 60%), var(--bg); overflow-x:hidden}
-    a{color:var(--fg); text-decoration:none}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial;color:var(--fg);background:radial-gradient(1200px 800px at 80% -10%, rgba(124,77,255,.08), transparent 60%),radial-gradient(900px 600px at -10% 110%, rgba(0,229,255,.08), transparent 60%),var(--bg);overflow-x:hidden}
+    a{color:var(--fg);text-decoration:none}
     .container{max-width:1120px;margin:0 auto;padding:0 20px}
+    /* Global particles canvas */
+    #particles{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.55}
     /* Nav */
-    nav{position:sticky;top:0;backdrop-filter:saturate(160%) blur(8px);background:linear-gradient(180deg, rgba(10,11,16,.8), rgba(10,11,16,.4)); border-bottom:1px solid rgba(255,255,255,.06); z-index:50}
+    nav{position:sticky;top:0;backdrop-filter:saturate(160%) blur(8px);background:linear-gradient(180deg, rgba(10,11,16,.8), rgba(10,11,16,.4));border-bottom:1px solid rgba(255,255,255,.06);z-index:50}
     .nav-wrap{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
     .brand{display:flex;gap:10px;align-items:center;font-weight:800;letter-spacing:.3px}
-    .logo{width:28px;height:28px;border-radius:8px;background:conic-gradient(from 210deg, var(--accent), var(--accent2)); box-shadow:0 6px 22px rgba(124,77,255,.45)}
+    .logo{width:28px;height:28px;border-radius:8px;background:conic-gradient(from 210deg, var(--accent), var(--accent2));box-shadow:0 6px 22px rgba(124,77,255,.45)}
     .nav-links{display:flex;gap:18px}
     .btn{padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));transition:.25s}
-    .btn:hover{transform:translateY(-2px); box-shadow:0 6px 24px rgba(0,0,0,.35)}
-    .btn-primary{border-color:transparent; background:linear-gradient(135deg, var(--accent), var(--accent2)); color:#0b0e14; font-weight:700}
+    .btn:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(0,0,0,.35)}
+    .btn-primary{border-color:transparent;background:linear-gradient(135deg, var(--accent), var(--accent2));color:#0b0e14;font-weight:700}
     /* Hero */
-    .hero{position:relative; padding:88px 0 60px; overflow:hidden}
-    .grid-hero{display:grid; grid-template-columns: 1.1fr .9fr; gap:38px; align-items:center}
-    .title{font-size: clamp(34px, 5vw, 58px); line-height:1.05; letter-spacing:-.02em; font-weight:800; margin:0}
-    .gradient-text{background:linear-gradient(135deg, #fff, #c7c9ff 30%, #93f6ff 60%, #d4b5ff 90%); -webkit-background-clip:text; background-clip:text; color:transparent}
-    .subtitle{color:var(--muted); font-size:clamp(16px,2.2vw,19px)}
-    .cta{margin-top:18px; display:flex; gap:12px; flex-wrap:wrap}
-    /* Code card */
-    .card{background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03)); border:1px solid rgba(255,255,255,.08); border-radius:18px; padding:16px; box-shadow:0 10px 35px rgba(0,0,0,.35)}
+    .hero{position:relative;padding:88px 0 60px;overflow:hidden;z-index:1}
+    .grid-hero{display:grid;grid-template-columns:1.1fr .9fr;gap:38px;align-items:center}
+    .title{font-size:clamp(34px,5vw,58px);line-height:1.05;letter-spacing:-.02em;font-weight:800;margin:0}
+    .gradient-text{background:linear-gradient(135deg,#fff,#c7c9ff 30%,#93f6ff 60%,#d4b5ff 90%);-webkit-background-clip:text;background-clip:text;color:transparent}
+    .subtitle{color:var(--muted);font-size:clamp(16px,2.2vw,19px)}
+    .cta{margin-top:18px;display:flex;gap:12px;flex-wrap:wrap}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:16px;box-shadow:0 10px 35px rgba(0,0,0,.35)}
     .shadow-xl{box-shadow:0 18px 60px rgba(124,77,255,.18)}
-    .code{font-family:"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; font-size:13.5px; color:#dfe2f1}
-    .code .k{color:#8ab4ff}
-    .code .s{color:#8af3ff}
-    .code .c{color:#7a8499}
-    .code .p{color:#fbd38d}
-    .status{display:flex; gap:10px; align-items:center; color:var(--muted); font-size:12px; margin-top:10px}
-    .pulse{width:8px;height:8px;border-radius:50%;background:var(--accent2); box-shadow:0 0 0 0 rgba(0,229,255,.6); animation:pulse 1.8s infinite}
-    @keyframes pulse{ 0%{box-shadow:0 0 0 0 rgba(0,229,255,.6)} 70%{box-shadow:0 0 0 12px rgba(0,229,255,0)} 100%{box-shadow:0 0 0 0 rgba(0,229,255,0)} }
-    /* Marquee */
-    .marquee{position:relative; margin:26px 0 0; overflow:hidden; mask-image:linear-gradient(to right, transparent, #000 14%, #000 86%, transparent)}
-    .m-track{display:flex; gap:30px; width:max-content; animation:scroll 18s linear infinite}
-    @keyframes scroll{ from{ transform:translateX(0)} to{ transform:translateX(-50%)} }
-    .chip{border:1px solid rgba(255,255,255,.12); background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02)); padding:10px 14px; border-radius:999px; font-size:13px; white-space:nowrap}
+    .code{font-family:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;font-size:13.5px;color:#dfe2f1}
+    .code .k{color:#8ab4ff}.code .s{color:#8af3ff}.code .c{color:#7a8499}.code .p{color:#fbd38d}
+    .status{display:flex;gap:10px;align-items:center;color:var(--muted);font-size:12px;margin-top:10px}
+    .pulse{width:8px;height:8px;border-radius:50%;background:var(--accent2);box-shadow:0 0 0 0 rgba(0,229,255,.6);animation:pulse 1.8s infinite}
+    @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(0,229,255,.6)}70%{box-shadow:0 0 0 12px rgba(0,229,255,0)}100%{box-shadow:0 0 0 0 rgba(0,229,255,0)}}
+    /* Features grid used for cards */
+    .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+    .feature{padding:18px;border-radius:16px;border:1px solid rgba(255,255,255,.08);transition:.4s ease;transform:translateY(20px);opacity:0}
+    .feature:nth-child(1){background:linear-gradient(180deg, rgba(124,77,255,.08), rgba(255,255,255,.02))}
+    .feature:nth-child(2){background:linear-gradient(180deg, rgba(0,229,255,.08), rgba(255,255,255,.02))}
+    .feature:nth-child(3){background:linear-gradient(180deg, rgba(255,215,0,.08), rgba(255,255,255,.02))}
+    .feature:nth-child(4){background:linear-gradient(180deg, rgba(0,255,128,.08), rgba(255,255,255,.02))}
+    .feature.on{transform:none;opacity:1}
     /* Sections */
-    section{padding:66px 0}
-    .section-title{font-size:28px; margin:0 0 10px}
+    section{padding:66px 0;position:relative;z-index:1}
+    .section-title{font-size:28px;margin:0 0 10px}
     .muted{color:var(--muted)}
-    .features{display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap:18px}
-    .feature{padding:18px; border-radius:16px; border:1px solid rgba(255,255,255,.08); background:var(--glass)}
-    .feature h3{margin:0 0 6px}
+    /* Story animation section */
+    #streamliner-animation{padding-top:10px;padding-bottom:10px}
+    #streamlinerSVG{width:100%;max-width:980px;filter:drop-shadow(0 10px 30px rgba(0,0,0,.35))}
+    .replay-wrap{margin-top:10px}
+    .replay{padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,255,255,.02));cursor:pointer;transition:.25s}
+    .replay:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(0,0,0,.35)}
     /* Footer */
-    footer{border-top:1px solid rgba(255,255,255,.08); background:rgba(255,255,255,.02); padding:20px 0; color:var(--muted)}
-    /* Reveal animations */
-    .reveal{opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease}
-    .reveal.on{opacity:1; transform:none}
-    /* Floating orbs */
-    .orb{position:absolute; filter:blur(22px); opacity:.55; pointer-events:none}
-    .orb.one{top:-60px; right:-60px; width:220px; height:220px; border-radius:50%; background:radial-gradient(circle at 30% 30%, rgba(124,77,255,.75), transparent 60%); animation:float 9s ease-in-out infinite}
-    .orb.two{bottom:-80px; left:-80px; width:280px; height:280px; border-radius:50%; background:radial-gradient(circle at 60% 40%, rgba(0,229,255,.75), transparent 60%); animation:float 11s ease-in-out infinite reverse}
-    @keyframes float{0%,100%{transform:translate(0,0)}50%{transform:translate(10px, -16px)}}
-    /* Responsive */
-    @media (max-width: 900px){ .grid-hero{grid-template-columns:1fr} .cta{justify-content:center} }
+    footer{border-top:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.02);padding:20px 0;color:var(--muted)}
+    /* Orbs reused */
+    .orb{position:absolute;filter:blur(22px);opacity:.55;pointer-events:none}
+    .orb.one{top:-60px;right:-60px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle at 30% 30%, rgba(124,77,255,.75), transparent 60%);animation:float 9s ease-in-out infinite}
+    .orb.two{bottom:-80px;left:-80px;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle at 60% 40%, rgba(0,229,255,.75), transparent 60%);animation:float 11s ease-in-out infinite reverse}
+    @keyframes float{0%,100%{transform:translate(0,0)}50%{transform:translate(10px,-16px)}}
+    @media (max-width:900px){.grid-hero{grid-template-columns:1fr}.cta{justify-content:center}}
   </style>
 </head>
 <body>
+  <canvas id="particles"></canvas>
   <nav>
     <div class="container nav-wrap">
       <a class="brand" href="#">
@@ -91,30 +91,14 @@
     <div class="orb two"></div>
     <div class="container grid-hero">
       <div>
-        <h1 class="title reveal" style="transition-delay:.05s">
-          Parse <span class="gradient-text">any log</span>. Normalize for <span class="gradient-text">any SIEM</span>.
-        </h1>
-        <p class="subtitle reveal" style="transition-delay:.15s">StreamLiner turns chaotic logs into clean, queryable events with a tiny, composable pipeline—perfect for Elastic, OpenSearch, Splunk, or your own Lakehouse.</p>
-        <div class="cta reveal" style="transition-delay:.25s">
+        <h1 class="title">Parse <span class="gradient-text">any log</span>. Normalize for <span class="gradient-text">any SIEM</span>.</h1>
+        <p class="subtitle">StreamLiner turns chaotic logs into clean, queryable events with a tiny, composable pipeline—perfect for Elastic, OpenSearch, Splunk, ArcSight, QRadar, or your own Lakehouse.</p>
+        <div class="cta">
           <a class="btn btn-primary" href="#get-started">Get Started</a>
           <a class="btn" href="features.html">See Features</a>
         </div>
-        <div class="marquee reveal" style="transition-delay:.35s">
-          <div class="m-track" aria-hidden="true">
-            <span class="chip">JSON → CEE/CLS</span>
-            <span class="chip">Syslog → ECS</span>
-            <span class="chip">CEF ↔ LEEF</span>
-            <span class="chip">CSV/TSV → JSON</span>
-            <span class="chip">Regex & YAML pipelines</span>
-            <span class="chip">Kafka / File / HTTP</span>
-            <span class="chip">Dedup & Enrich</span>
-            <span class="chip">Timezone-safe</span>
-            <span class="chip">Streaming & Batch</span>
-            <span class="chip">Pluggable Outputs</span>
-          </div>
-        </div>
       </div>
-      <div class="card shadow-xl reveal" style="transition-delay:.2s">
+      <div class="card shadow-xl">
         <pre class="code" aria-label="demo code"><code><span class="c"># Normalize raw syslog to ECS in two steps</span>
 <span class="k">flow</span> <span class="p">input</span> syslog_udp <span class="p">port</span>=514
 <span class="k">flow</span> <span class="p">parser</span> ecs_map <span class="p">preset</span>="nginx"
@@ -124,51 +108,138 @@
     </div>
   </header>
 
-  <section id="get-started">
-    <div class="container">
-      <h2 class="section-title reveal">Get started in 60 seconds</h2>
-      <p class="muted reveal" style="max-width:720px">Drop a single binary or run the Docker image. Define a tiny <code>flow</code> with <code>input → parser → output</code>. Ship normalized events to your SIEM.</p>
-      <div class="features" style="margin-top:18px">
-        <article class="feature reveal" style="transition-delay:.05s">
-          <h3>1. Run</h3>
-          <p class="muted">Docker: <code>docker run -p 514:514/udp ghcr.io/allamiro/streamliner:latest</code></p>
-        </article>
-        <article class="feature reveal" style="transition-delay:.1s">
-          <h3>2. Configure</h3>
-          <p class="muted">Create <code>streamliner.ini</code> with your input, parser, and output blocks.</p>
-        </article>
-        <article class="feature reveal" style="transition-delay:.15s">
-          <h3>3. Ship</h3>
-          <p class="muted">Point your agents to StreamLiner; verify events in your SIEM index.</p>
-        </article>
-        <article class="feature reveal" style="transition-delay:.2s">
-          <h3>Docs</h3>
-          <p class="muted">Read the <a href="docs.html">quickstart</a> and examples for Elastic, OpenSearch, and Splunk.</p>
-        </article>
+  <!-- Story Animation Section -->
+  <section id="streamliner-animation">
+    <div class="container" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px">
+      <svg id="streamlinerSVG" viewBox="0 0 1040 460">
+        <defs>
+          <!-- Glow filter for pulses/arrows -->
+          <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="4" result="b"/>
+            <feMerge>
+              <feMergeNode in="b"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+          <!-- Arrow marker -->
+          <marker id="arrowHead" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+            <path d="M0,0 L0,9 L9,4.5 z" fill="var(--accent)" />
+          </marker>
+          <marker id="arrowHead2" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+            <path d="M0,0 L0,9 L9,4.5 z" fill="var(--accent2)" />
+          </marker>
+        </defs>
+        <!-- Background pane for subtle contrast inside SVG -->
+        <rect width="1040" height="460" fill="transparent"/>
+
+        <!-- Scene 1: Computer with typed lines on screen -->
+        <g id="scene1" opacity="1">
+          <!-- computer frame -->
+          <rect x="300" y="70" width="440" height="260" rx="16" fill="#11131a" stroke="#303442"/>
+          <rect x="320" y="96" width="400" height="200" fill="#0f1117" stroke="#1c2030"/>
+          <!-- typed lines inside screen -->
+          <g id="typedLines" font-family="JetBrains Mono, monospace" font-size="12" fill="#cfe3ff">
+            <text x="336" y="120">$ tail -f /var/log/syslog</text>
+            <text class="typeLine" x="336" y="140" opacity="0">Aug 13 14:23 nginx[1024]: GET /</text>
+            <text class="typeLine" x="336" y="160" opacity="0">Aug 13 14:23 sshd[2211]: Accepted publickey</text>
+            <text class="typeLine" x="336" y="180" opacity="0">Aug 13 14:23 kernel: eth0: link up</text>
+            <text class="typeLine" x="336" y="200" opacity="0">Aug 13 14:23 app[554]: user=42 action=login</text>
+          </g>
+          <!-- stand and keyboard -->
+          <rect x="380" y="342" width="280" height="12" fill="var(--accent)" opacity=".7"/>
+          <g id="kbd">
+            <rect class="key" x="430" y="362" width="22" height="10" fill="#3a3f4b" rx="2"/>
+            <rect class="key" x="458" y="362" width="22" height="10" fill="#3a3f4b" rx="2"/>
+            <rect class="key" x="486" y="362" width="22" height="10" fill="#3a3f4b" rx="2"/>
+            <rect class="key" x="514" y="362" width="22" height="10" fill="#3a3f4b" rx="2"/>
+          </g>
+        </g>
+
+        <!-- Scene 2: Inside computer with pulses along dotted path -->
+        <g id="scene2" opacity="0">
+          <path id="netPath" d="M140 300 C 300 170, 520 170, 680 300 S 940 420, 900 200" fill="none" stroke="var(--accent2)" stroke-width="3" stroke-dasharray="6 12"/>
+          <!-- multiple pulses with glow -->
+          <g filter="url(#glow)">
+            <circle class="pulseDot" r="6" fill="var(--accent2)"/>
+            <circle class="pulseDot" r="5" fill="var(--accent2)"/>
+            <circle class="pulseDot" r="4" fill="var(--accent2)"/>
+          </g>
+        </g>
+
+        <!-- Scene 3: Log file materializing -->
+        <g id="scene3" opacity="0">
+          <rect x="460" y="120" width="150" height="200" rx="10" fill="#11131a" stroke="#dfe2f1"/>
+          <line x1="475" y1="150" x2="595" y2="150" stroke="var(--accent)" stroke-width="3"/>
+          <line x1="475" y1="176" x2="595" y2="176" stroke="var(--accent)" stroke-width="3"/>
+          <line x1="475" y1="202" x2="595" y2="202" stroke="var(--accent)" stroke-width="3"/>
+          <line x1="475" y1="228" x2="595" y2="228" stroke="var(--accent2)" stroke-width="3"/>
+        </g>
+
+        <!-- Scene 4: StreamLiner processing box with waves -->
+        <g id="scene4" opacity="0">
+          <rect x="400" y="150" width="240" height="160" rx="16" fill="#11131a" stroke="var(--accent2)"/>
+          <text x="520" y="220" text-anchor="middle" font-size="20" fill="var(--accent2)">StreamLiner</text>
+          <circle class="gear" cx="520" cy="260" r="14" fill="none" stroke="var(--accent)" stroke-width="3"/>
+          <path id="wave" d="M420 230 Q 470 210 520 230 T 620 230" fill="none" stroke="var(--accent)" stroke-width="2" opacity=".7"/>
+        </g>
+
+        <!-- Scene 5: Inputs from left -> StreamLiner -> Outputs right -->
+        <g id="scene5" opacity="0">
+          <!-- center box -->
+          <rect x="470" y="180" width="100" height="80" rx="10" fill="#11131a" stroke="var(--accent2)"/>
+          <text x="520" y="220" text-anchor="middle" font-size="14" fill="var(--accent2)">StreamLiner</text>
+
+          <!-- INPUTS (left, into StreamLiner) -->
+          <g filter="url(#glow)">
+            <line class="inArrow" x1="360" y1="190" x2="470" y2="200" stroke="var(--accent2)" stroke-width="2" marker-end="url(#arrowHead2)"/>
+            <line class="inArrow" x1="360" y1="220" x2="470" y2="220" stroke="var(--accent2)" stroke-width="2" marker-end="url(#arrowHead2)"/>
+            <line class="inArrow" x1="360" y1="250" x2="470" y2="240" stroke="var(--accent2)" stroke-width="2" marker-end="url(#arrowHead2)"/>
+          </g>
+          <text x="330" y="194" fill="#e7e9ee" font-size="13" text-anchor="end">Syslog</text>
+          <text x="330" y="224" fill="#e7e9ee" font-size="13" text-anchor="end">CEF / LEEF</text>
+          <text x="330" y="254" fill="#e7e9ee" font-size="13" text-anchor="end">JSON / CSV</text>
+
+          <!-- OUTPUTS (right, out to SIEMs) -->
+          <g filter="url(#glow)">
+            <line class="outArrow" x1="570" y1="200" x2="710" y2="160" stroke="var(--accent)" stroke-width="2" marker-end="url(#arrowHead)"/>
+            <line class="outArrow" x1="570" y1="220" x2="710" y2="220" stroke="var(--accent)" stroke-width="2" marker-end="url(#arrowHead)"/>
+            <line class="outArrow" x1="570" y1="240" x2="710" y2="280" stroke="var(--accent)" stroke-width="2" marker-end="url(#arrowHead)"/>
+          </g>
+          <text x="730" y="160" fill="#e7e9ee" font-size="14">Elastic</text>
+          <text x="730" y="220" fill="#e7e9ee" font-size="14">Splunk</text>
+          <text x="730" y="280" fill="#e7e9ee" font-size="14">QRadar / ArcSight</text>
+        </g>
+      </svg>
+
+      <div class="replay-wrap">
+        <button class="replay" id="replayBtn">Replay animation</button>
       </div>
     </div>
   </section>
 
+  <!-- Get Started -->
+  <section id="get-started">
+    <div class="container">
+      <h2 class="section-title">Get started in 60 seconds</h2>
+      <p class="muted" style="max-width:720px">Drop a single binary or run the Docker image. Define a tiny <code>flow</code> with <code>input → parser → output</code>. Ship normalized events to your SIEM of choice: Elastic, OpenSearch, Splunk, ArcSight, QRadar, and more.</p>
+      <div class="features">
+        <article class="feature"><h3>1. Run</h3><p class="muted">Docker: <code>docker run -p 514:514/udp -v $(pwd)/streamliner.ini:/etc/streamliner.ini ghcr.io/allamiro/streamliner:latest</code></p></article>
+        <article class="feature"><h3>2. Configure</h3><p class="muted">Create <code>streamliner.ini</code> with your input, parser, and output blocks for your target SIEM.</p></article>
+        <article class="feature"><h3>3. Ship</h3><p class="muted">Point your agents to StreamLiner; verify events in Elastic, OpenSearch, Splunk, ArcSight, or QRadar.</p></article>
+        <article class="feature"><h3>Docs</h3><p class="muted">Read the <a href="docs.html">quickstart</a> and examples for common SIEMs and pipelines.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why StreamLiner -->
   <section>
     <div class="container">
-      <h2 class="section-title reveal">Why StreamLiner?</h2>
-      <div class="features" style="margin-top:6px">
-        <div class="feature reveal" style="transition-delay:.05s">
-          <h3>Deterministic parsing</h3>
-          <p class="muted">Strict schema mapping (CEE/ECS/CLS) to keep dashboards consistent across tenants.</p>
-        </div>
-        <div class="feature reveal" style="transition-delay:.1s">
-          <h3>Zero vendor lock-in</h3>
-          <p class="muted">Swap outputs (OpenSearch/Elastic/S3/Parquet) without changing your pipelines.</p>
-        </div>
-        <div class="feature reveal" style="transition-delay:.15s">
-          <h3>Tiny footprint</h3>
-          <p class="muted">Single binary or container. No JVM. Memory-safe and ops-friendly.</p>
-        </div>
-        <div class="feature reveal" style="transition-delay:.2s">
-          <h3>Enrich on the edge</h3>
-          <p class="muted">GeoIP, ASN, Threat‑intel tagging, and dedup built-in.</p>
-        </div>
+      <h2 class="section-title">Why StreamLiner?</h2>
+      <div class="features">
+        <div class="feature"><h3>Deterministic parsing</h3><p class="muted">Strict schema mapping (CEE/ECS/CLS) to keep dashboards consistent across tenants.</p></div>
+        <div class="feature"><h3>Zero vendor lock-in</h3><p class="muted">Swap outputs (OpenSearch/Elastic/S3/Parquet) without changing your pipelines.</p></div>
+        <div class="feature"><h3>Tiny footprint</h3><p class="muted">Single binary or container. No JVM. Memory-safe and ops-friendly.</p></div>
+        <div class="feature"><h3>Enrich on the edge</h3><p class="muted">GeoIP, ASN, Threat‑intel tagging, and dedup built-in.</p></div>
       </div>
     </div>
   </section>
@@ -180,19 +251,107 @@
     </div>
   </footer>
 
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/MotionPathPlugin.min.js"></script>
   <script>
     // Year
     document.getElementById('year').textContent = new Date().getFullYear();
-    // Reveal on scroll
-    const io = new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('on'); io.unobserve(e.target)} })
-    },{threshold:.14});
-    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-    // Respect reduced motion
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-      document.querySelectorAll('.m-track').forEach(el=>el.style.animation='none');
-      document.querySelectorAll('.orb').forEach(el=>el.style.animation='none');
+
+    // Reveal animation for feature cards
+    const io = new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}})},{threshold:.14});
+    document.querySelectorAll('.feature').forEach(el=>io.observe(el));
+
+    // Particles (global, subtle)
+    (function(){
+      const cvs = document.getElementById('particles');
+      const ctx = cvs.getContext('2d');
+      let w,h,particles;
+      function resize(){ w = cvs.width = window.innerWidth; h = cvs.height = window.innerHeight; make(); }
+      function make(){
+        const count = Math.min(70, Math.floor((w*h)/40000));
+        particles = Array.from({length:count}, ()=>({
+          x: Math.random()*w,
+          y: Math.random()*h,
+          r: Math.random()*1.8+0.6,
+          vx: (Math.random()-.5)*0.2,
+          vy: (Math.random()-.5)*0.2,
+          a: Math.random()*Math.PI*2
+        }));
+      }
+      function step(){
+        ctx.clearRect(0,0,w,h);
+        particles.forEach(p=>{
+          p.x+=p.vx; p.y+=p.vy; p.a+=0.003;
+          if(p.x<0) p.x=w; if(p.x>w) p.x=0; if(p.y<0) p.y=h; if(p.y>h) p.y=0;
+          ctx.globalAlpha=0.55+0.45*Math.sin(p.a);
+          ctx.beginPath();
+          ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+          ctx.fillStyle = Math.random()<0.5? 'rgba(124,77,255,0.6)' : 'rgba(0,229,255,0.6)';
+          ctx.fill();
+        });
+        requestAnimationFrame(step);
+      }
+      window.addEventListener('resize', resize); resize(); step();
+    })();
+
+    // GSAP timeline for story (slow loop ~18s)
+    gsap.registerPlugin(MotionPathPlugin);
+    const tl = gsap.timeline({repeat:-1, defaults:{ease:'power1.inOut'}});
+
+    function playStory(){
+      tl.clear();
+      // Reset visibility
+      gsap.set('#scene1, #scene2, #scene3, #scene4, #scene5', {opacity:0});
+
+      // Stage 1: Typing (3s) with on-screen lines appearing
+      tl.to('#scene1', {opacity:1, duration:0.6})
+        .fromTo('#scene1 .key', {y:0},{y:-2, stagger:0.08, yoyo:true, repeat:10, duration:0.12})
+        .to('#typedLines .typeLine', {opacity:1, stagger:0.25, duration:0.25}, '<')
+        .to('#scene1', {opacity:0, duration:0.6}, '+=1.6');
+
+      // Stage 2: Inside with pulses (4s) — glowing dots riding dotted path
+      tl.to('#scene2', {opacity:1, duration:0.6})
+        .add(()=>{
+          const dots = document.querySelectorAll('#scene2 .pulseDot');
+          dots.forEach((el,i)=>{
+            gsap.set(el, {x:140, y:300, opacity:1});
+            gsap.to(el, {
+              duration: 3.0 + i*0.35,
+              repeat: 0,
+              ease: 'power1.inOut',
+              motionPath: {path:'#netPath', align:'#netPath', autoRotate:true},
+              onUpdate: function(){ el.setAttribute('r', 4 + 2*Math.random()); },
+              onComplete: ()=> gsap.to(el,{opacity:0,duration:0.3})
+            });
+          });
+        })
+        .to('#scene2', {opacity:0, duration:0.6}, '+=2.0');
+
+      // Stage 3: Log file (3s)
+      tl.to('#scene3', {opacity:1, duration:0.6})
+        .from('#scene3 line', {scaleX:0, transformOrigin:'0 0', stagger:0.15, duration:0.55})
+        .to('#scene3', {opacity:0, duration:0.6}, '+=1.2');
+
+      // Stage 4: Processing (3.5s)
+      tl.to('#scene4', {opacity:1, duration:0.6})
+        .to('#scene4 .gear', {rotation:360, transformOrigin:'50% 50%', duration:1.2, repeat:2, ease:'power1.inOut'})
+        .fromTo('#wave', {attr:{d:'M420 230 Q 470 230 520 230 T 620 230'}}, {attr:{d:'M420 230 Q 470 210 520 230 T 620 230'}, yoyo:true, repeat:3, duration:0.5})
+        .to('#scene4', {opacity:0, duration:0.6});
+
+      // Stage 5: Inputs (left) -> StreamLiner -> Outputs (right) (4s)
+      tl.to('#scene5', {opacity:1, duration:0.6})
+        .from('#scene5 .inArrow', {scaleX:0, transformOrigin:'0 0', stagger:0.2, duration:0.6})
+        .from('#scene5 .outArrow', {scaleX:0, transformOrigin:'0 0', stagger:0.25, duration:0.6}, '>-0.2')
+        .to('#scene5', {opacity:0, duration:0.6}, '+=2.2');
     }
+
+    playStory();
+
+    // Replay button
+    document.getElementById('replayBtn').addEventListener('click', ()=>{
+      tl.pause(0); playStory();
+    });
   </script>
 </body>
 </html>
