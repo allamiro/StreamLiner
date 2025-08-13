@@ -1,6 +1,16 @@
 # StreamLiner
 
 A universal log parser that normalizes and converts logs for any SIEM—Elastic, OpenSearch, Splunk, ArcSight, QRadar, and more.
+Normalize and convert logs from any source to your preferred format in seconds.
+
+## Run locally
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+pip install .
+
+python src/main.py --config examples/streamliner.ini
 
 ## Features
 - **Deterministic parsing:** ECS/CEE/CLS mappings for consistent dashboards.
