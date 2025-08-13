@@ -1,0 +1,20 @@
+
+---
+
+### 4. `pyproject.toml`
+```toml
+[build-system]
+requires = ["setuptools>=42"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "streamliner"
+version = "0.1.0"
+description = "Universal Log Parser for Any SIEM"
+authors = [{name="Tamir Suliman"}]
+license = {text = "MIT"}
+dependencies = []
+requires-python = ">=3.9"
+
+[tool.setuptools.packages.find]
+where = ["src"]
