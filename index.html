@@ -1,45 +1,198 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StreamLiner - A Universal Log Parser</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <style>
-        .hero-section { background-color: #f8f9fa; padding: 100px 0; text-align: center; }
-        .footer { padding: 20px 0; background-color: #343a40; color: #ccc; text-align: center; }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>StreamLiner — Universal Log Parser for Any SIEM</title>
+  <meta name="description" content="StreamLiner: a universal log parser to normalize and convert data for any SIEM." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg: #0a0b10; --fg: #e7e9ee; --muted:#9aa0aa; --accent:#7c4dff; --accent2:#00e5ff; --card:#11131a; --glass:rgba(255,255,255,.06);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial; color:var(--fg); background:radial-gradient(1200px 800px at 80% -10%, rgba(124,77,255,.08), transparent 60%),
+      radial-gradient(900px 600px at -10% 110%, rgba(0,229,255,.08), transparent 60%), var(--bg); overflow-x:hidden}
+    a{color:var(--fg); text-decoration:none}
+    .container{max-width:1120px;margin:0 auto;padding:0 20px}
+    /* Nav */
+    nav{position:sticky;top:0;backdrop-filter:saturate(160%) blur(8px);background:linear-gradient(180deg, rgba(10,11,16,.8), rgba(10,11,16,.4)); border-bottom:1px solid rgba(255,255,255,.06); z-index:50}
+    .nav-wrap{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+    .brand{display:flex;gap:10px;align-items:center;font-weight:800;letter-spacing:.3px}
+    .logo{width:28px;height:28px;border-radius:8px;background:conic-gradient(from 210deg, var(--accent), var(--accent2)); box-shadow:0 6px 22px rgba(124,77,255,.45)}
+    .nav-links{display:flex;gap:18px}
+    .btn{padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));transition:.25s}
+    .btn:hover{transform:translateY(-2px); box-shadow:0 6px 24px rgba(0,0,0,.35)}
+    .btn-primary{border-color:transparent; background:linear-gradient(135deg, var(--accent), var(--accent2)); color:#0b0e14; font-weight:700}
+    /* Hero */
+    .hero{position:relative; padding:88px 0 60px; overflow:hidden}
+    .grid-hero{display:grid; grid-template-columns: 1.1fr .9fr; gap:38px; align-items:center}
+    .title{font-size: clamp(34px, 5vw, 58px); line-height:1.05; letter-spacing:-.02em; font-weight:800; margin:0}
+    .gradient-text{background:linear-gradient(135deg, #fff, #c7c9ff 30%, #93f6ff 60%, #d4b5ff 90%); -webkit-background-clip:text; background-clip:text; color:transparent}
+    .subtitle{color:var(--muted); font-size:clamp(16px,2.2vw,19px)}
+    .cta{margin-top:18px; display:flex; gap:12px; flex-wrap:wrap}
+    /* Code card */
+    .card{background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03)); border:1px solid rgba(255,255,255,.08); border-radius:18px; padding:16px; box-shadow:0 10px 35px rgba(0,0,0,.35)}
+    .shadow-xl{box-shadow:0 18px 60px rgba(124,77,255,.18)}
+    .code{font-family:"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; font-size:13.5px; color:#dfe2f1}
+    .code .k{color:#8ab4ff}
+    .code .s{color:#8af3ff}
+    .code .c{color:#7a8499}
+    .code .p{color:#fbd38d}
+    .status{display:flex; gap:10px; align-items:center; color:var(--muted); font-size:12px; margin-top:10px}
+    .pulse{width:8px;height:8px;border-radius:50%;background:var(--accent2); box-shadow:0 0 0 0 rgba(0,229,255,.6); animation:pulse 1.8s infinite}
+    @keyframes pulse{ 0%{box-shadow:0 0 0 0 rgba(0,229,255,.6)} 70%{box-shadow:0 0 0 12px rgba(0,229,255,0)} 100%{box-shadow:0 0 0 0 rgba(0,229,255,0)} }
+    /* Marquee */
+    .marquee{position:relative; margin:26px 0 0; overflow:hidden; mask-image:linear-gradient(to right, transparent, #000 14%, #000 86%, transparent)}
+    .m-track{display:flex; gap:30px; width:max-content; animation:scroll 18s linear infinite}
+    @keyframes scroll{ from{ transform:translateX(0)} to{ transform:translateX(-50%)} }
+    .chip{border:1px solid rgba(255,255,255,.12); background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02)); padding:10px 14px; border-radius:999px; font-size:13px; white-space:nowrap}
+    /* Sections */
+    section{padding:66px 0}
+    .section-title{font-size:28px; margin:0 0 10px}
+    .muted{color:var(--muted)}
+    .features{display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap:18px}
+    .feature{padding:18px; border-radius:16px; border:1px solid rgba(255,255,255,.08); background:var(--glass)}
+    .feature h3{margin:0 0 6px}
+    /* Footer */
+    footer{border-top:1px solid rgba(255,255,255,.08); background:rgba(255,255,255,.02); padding:20px 0; color:var(--muted)}
+    /* Reveal animations */
+    .reveal{opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease}
+    .reveal.on{opacity:1; transform:none}
+    /* Floating orbs */
+    .orb{position:absolute; filter:blur(22px); opacity:.55; pointer-events:none}
+    .orb.one{top:-60px; right:-60px; width:220px; height:220px; border-radius:50%; background:radial-gradient(circle at 30% 30%, rgba(124,77,255,.75), transparent 60%); animation:float 9s ease-in-out infinite}
+    .orb.two{bottom:-80px; left:-80px; width:280px; height:280px; border-radius:50%; background:radial-gradient(circle at 60% 40%, rgba(0,229,255,.75), transparent 60%); animation:float 11s ease-in-out infinite reverse}
+    @keyframes float{0%,100%{transform:translate(0,0)}50%{transform:translate(10px, -16px)}}
+    /* Responsive */
+    @media (max-width: 900px){ .grid-hero{grid-template-columns:1fr} .cta{justify-content:center} }
+  </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand" href="index.html">StreamLiner</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="features.html">Features</a></li>
-                    <li class="nav-item"><a class="nav-link" href="docs.html">Docs</a></li>
-                    <li class="nav-item"><a class="nav-link" href="https://github.com/allamiro/StreamLiner" target="_blank">GitHub</a></li>
-                </ul>
-            </div>
+  <nav>
+    <div class="container nav-wrap">
+      <a class="brand" href="#">
+        <span class="logo" aria-hidden="true"></span>
+        <span>StreamLiner</span>
+      </a>
+      <div class="nav-links">
+        <a class="btn" href="features.html">Features</a>
+        <a class="btn" href="docs.html">Docs</a>
+        <a class="btn btn-primary" href="https://github.com/allamiro/StreamLiner">GitHub</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="orb one"></div>
+    <div class="orb two"></div>
+    <div class="container grid-hero">
+      <div>
+        <h1 class="title reveal" style="transition-delay:.05s">
+          Parse <span class="gradient-text">any log</span>. Normalize for <span class="gradient-text">any SIEM</span>.
+        </h1>
+        <p class="subtitle reveal" style="transition-delay:.15s">StreamLiner turns chaotic logs into clean, queryable events with a tiny, composable pipeline—perfect for Elastic, OpenSearch, Splunk, or your own Lakehouse.</p>
+        <div class="cta reveal" style="transition-delay:.25s">
+          <a class="btn btn-primary" href="#get-started">Get Started</a>
+          <a class="btn" href="features.html">See Features</a>
         </div>
-    </nav>
-    <header class="hero-section">
-        <div class="container">
-            <h1 class="display-3 fw-bold">StreamLiner</h1>
-            <p class="lead mt-3">A universal log parser to normalize data and convert between SIEM formats for seamless migration.</p>
-            <a href="features.html" class="btn btn-primary btn-lg mt-4">Learn About the Features</a>
-            <a href="https://github.com/allamiro/StreamLiner" class="btn btn-outline-primary btn-lg mt-4" target="_blank">
-                <i class="fab fa-github"></i> View on GitHub
-            </a>
+        <div class="marquee reveal" style="transition-delay:.35s">
+          <div class="m-track" aria-hidden="true">
+            <span class="chip">JSON → CEE/CLS</span>
+            <span class="chip">Syslog → ECS</span>
+            <span class="chip">CEF ↔ LEEF</span>
+            <span class="chip">CSV/TSV → JSON</span>
+            <span class="chip">Regex & YAML pipelines</span>
+            <span class="chip">Kafka / File / HTTP</span>
+            <span class="chip">Dedup & Enrich</span>
+            <span class="chip">Timezone-safe</span>
+            <span class="chip">Streaming & Batch</span>
+            <span class="chip">Pluggable Outputs</span>
+          </div>
         </div>
-    </header>
-    <footer class="footer">
-        <div class="container"><p class="mb-0">&copy; 2025 allamiro/StreamLiner. All Rights Reserved.</p></div>
-    </footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+      </div>
+      <div class="card shadow-xl reveal" style="transition-delay:.2s">
+        <pre class="code" aria-label="demo code"><code><span class="c"># Normalize raw syslog to ECS in two steps</span>
+<span class="k">flow</span> <span class="p">input</span> syslog_udp <span class="p">port</span>=514
+<span class="k">flow</span> <span class="p">parser</span> ecs_map <span class="p">preset</span>="nginx"
+<span class="k">flow</span> <span class="p">output</span> opensearch <span class="p">index</span>="streamliner-logs-*</code></pre>
+        <div class="status"><span class="pulse" aria-hidden="true"></span> live demo — pseudo DSL</div>
+      </div>
+    </div>
+  </header>
+
+  <section id="get-started">
+    <div class="container">
+      <h2 class="section-title reveal">Get started in 60 seconds</h2>
+      <p class="muted reveal" style="max-width:720px">Drop a single binary or run the Docker image. Define a tiny <code>flow</code> with <code>input → parser → output</code>. Ship normalized events to your SIEM.</p>
+      <div class="features" style="margin-top:18px">
+        <article class="feature reveal" style="transition-delay:.05s">
+          <h3>1. Run</h3>
+          <p class="muted">Docker: <code>docker run -p 514:514/udp ghcr.io/allamiro/streamliner:latest</code></p>
+        </article>
+        <article class="feature reveal" style="transition-delay:.1s">
+          <h3>2. Configure</h3>
+          <p class="muted">Create <code>streamliner.ini</code> with your input, parser, and output blocks.</p>
+        </article>
+        <article class="feature reveal" style="transition-delay:.15s">
+          <h3>3. Ship</h3>
+          <p class="muted">Point your agents to StreamLiner; verify events in your SIEM index.</p>
+        </article>
+        <article class="feature reveal" style="transition-delay:.2s">
+          <h3>Docs</h3>
+          <p class="muted">Read the <a href="docs.html">quickstart</a> and examples for Elastic, OpenSearch, and Splunk.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <h2 class="section-title reveal">Why StreamLiner?</h2>
+      <div class="features" style="margin-top:6px">
+        <div class="feature reveal" style="transition-delay:.05s">
+          <h3>Deterministic parsing</h3>
+          <p class="muted">Strict schema mapping (CEE/ECS/CLS) to keep dashboards consistent across tenants.</p>
+        </div>
+        <div class="feature reveal" style="transition-delay:.1s">
+          <h3>Zero vendor lock-in</h3>
+          <p class="muted">Swap outputs (OpenSearch/Elastic/S3/Parquet) without changing your pipelines.</p>
+        </div>
+        <div class="feature reveal" style="transition-delay:.15s">
+          <h3>Tiny footprint</h3>
+          <p class="muted">Single binary or container. No JVM. Memory-safe and ops-friendly.</p>
+        </div>
+        <div class="feature reveal" style="transition-delay:.2s">
+          <h3>Enrich on the edge</h3>
+          <p class="muted">GeoIP, ASN, Threat‑intel tagging, and dedup built-in.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container" style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap">
+      <div>© <span id="year"></span> StreamLiner · MIT</div>
+      <div><a href="https://github.com/allamiro/StreamLiner">GitHub</a> · <a href="features.html">Features</a> · <a href="docs.html">Docs</a></div>
+    </div>
+  </footer>
+
+  <script>
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+    // Reveal on scroll
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('on'); io.unobserve(e.target)} })
+    },{threshold:.14});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+    // Respect reduced motion
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+      document.querySelectorAll('.m-track').forEach(el=>el.style.animation='none');
+      document.querySelectorAll('.orb').forEach(el=>el.style.animation='none');
+    }
+  </script>
 </body>
 </html>
