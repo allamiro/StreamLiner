@@ -1,0 +1,49 @@
+defaults:
+  event.category:
+  - process
+  event.kind: event
+  event.type:
+  - info
+  preserve_unmapped: true
+field_mappings:
+  '@timestamp':
+    field: timestamp
+    transform:
+      format: '%Y-%m-%d %H:%M:%S'
+      type: timestamp
+  destination.ip: dst_ip
+  destination.port:
+    field: dst_port
+    transform:
+      type: int
+  host.ip: host_ip
+  host.name: hostname
+  log.level:
+    field: level
+    transform:
+      mapping:
+        CRIT: CRITICAL
+        ERR: ERROR
+        WARN: WARNING
+      type: map
+  message: msg
+  process.name:
+    group: 1
+    regex: process=(\w+)
+    source_field: message
+  source.ip: src_ip
+  source.port:
+    field: src_port
+    transform:
+      type: int
+  user.name:
+    fields:
+    - username
+    - user
+    - login
+    method: first
+transformations:
+  host.name:
+    type: lowercase
+  message:
+    type: strip

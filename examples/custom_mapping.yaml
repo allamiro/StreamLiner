@@ -1,0 +1,83 @@
+# Sample Custom YAML Mapping for StreamLiner
+# This demonstrates how to create custom field mappings for your log format
+
+defaults:
+  event.kind: event
+  event.category: [process]
+  event.type: [info]
+  preserve_unmapped: true
+
+field_mappings:
+  # Timestamp mapping with format conversion
+  '@timestamp':
+    field: timestamp
+    transform:
+      type: timestamp
+      format: '%Y-%m-%d %H:%M:%S'
+  
+  # Simple field mappings
+  'message': msg
+  'host.name': hostname
+  'host.ip': host_ip
+  
+  # Network fields with type conversion
+  'source.ip': src_ip
+  'source.port':
+    field: src_port
+    transform:
+      type: int
+  
+  'destination.ip': dst_ip
+  'destination.port':
+    field: dst_port
+    transform:
+      type: int
+  
+  # Log level with value mapping
+  'log.level':
+    field: level
+    transform:
+      type: map
+      mapping:
+        WARN: WARNING
+        ERR: ERROR
+        CRIT: CRITICAL
+        DBG: DEBUG
+      default: INFO
+  
+  # User field with fallback options
+  'user.name':
+    fields: [username, user, login]
+    method: first
+  
+  # Process extraction using regex
+  'process.name':
+    regex: 'process=(\w+)'
+    source_field: message
+    group: 1
+  
+  # Constant value assignment
+  'event.module':
+    constant: custom_app
+  
+  # Multi-field concatenation
+  'event.original':
+    fields: [raw_message, original_log]
+    method: concat
+    separator: ' | '
+
+# Post-processing transformations
+transformations:
+  # Clean up message field
+  message:
+    type: strip
+  
+  # Normalize hostname to lowercase
+  'host.name':
+    type: lowercase
+  
+  # Extract first part of FQDN
+  'host.hostname':
+    type: split
+    separator: '.'
+    index: 0

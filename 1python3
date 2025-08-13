@@ -1,0 +1,6 @@
+usage: main.py [-h] [--config CONFIG] [--log LOG]
+               [--create-sample-mapping PATH] [--validate-config] [--version]
+usage: main.py [-h] [--config CONFIG] [--log LOG]
+               [--create-sample-mapping PATH] [--validate-config] [--version]
+main.py: error: unrecognized arguments: src/main.py
+main.py: error: unrecognized arguments: src/main.py
